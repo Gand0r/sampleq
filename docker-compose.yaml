@@ -1,14 +1,32 @@
 services:
-    # nginx
+# Web server menggunakan nginx
     web: 
         image: nginx:latest
         ports:
             - "80:80"
         volumes:
           - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-    
+# Aplikasi menggunakan php
     app:
         build:
             dockerfile: ./php/Dockerfile
         volumes:
           - ./app:/app
+# Database menggunakan mysql database
+    db:
+        image: mysql:8.2
+        volumes:
+          - mysqldata:/var/lib/mysql
+        ports:
+          - "3306:3306"
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: passw0rd
+            MYSQL_USER: dbq
+            MYSQL_PASSWORD: passw0rd
+            MYSQL_DATABASE: dataq
+    # Untuk dokumentasi selengkapnya bisa cek di link berikut ya:
+    # https://hub.docker.com/_/mysql
+
+volumes:
+  mysqldata:
