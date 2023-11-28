@@ -1,4 +1,4 @@
-# docker-php-watch-and-learn
+# docker-php-sample
 
 sudo docker compose up -d
 
